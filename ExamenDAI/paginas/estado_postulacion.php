@@ -2,7 +2,7 @@
 include ('includes/header.php');
 ?>
 
-<form action="consulta_estado.php" class="contact_form">
+<form action="estado_postulacion.php" class="contact_form">
     <h1>Consulta estado postulación</h1>
         <li>
             <ul>

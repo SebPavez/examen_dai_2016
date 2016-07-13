@@ -39,46 +39,43 @@ class SolicitudDaoImplementado{
         }
     }
 
-    public function ingresarPostulacion(string $rut_postulante, Solicitud $postulacion) {
+    public function ingresarPostulacion(Solicitud $postulacion) {
         $conexion = new ConexionPDO();
         try {
-            $modalidad = $postulacion->getModalidad();
-            $curso = $postulacion->getCurso();
-            $estado = $postulacion->getEstado();
+            $rut_postulante = $postulacion->getRut();
+            $nombre = $postulacion->getNombre();
+            $ap_paterno = $postulacion->getApellido_paterno();
+            $ap_materno = $postulacion->getApellido_materno();
+            $f_nacimiento = $postulacion->getF_nacimiento();
+            $sexo = $postulacion->getSexo();
             $fono = $postulacion->getFono();
             $correo = $postulacion->getE_mail();
             $direccion = $postulacion->getDireccion();
             $comuna = $postulacion->getComuna();
             $niv_edu = $postulacion->getNivel_educacional();
-            $exp_laboral = $postulacion->getExperiencia_laboral();
-            $id = $postulacion->getId_solicitud();
-            $query = "INSERT INTO solicitud("
-                    . "rutPostulante, modalidad, curso, fechaIngreso, estado, "
-                    . "telefono, email, direccion, comuna, educacion, experiencia"
-                    . ") VALUES (:rut,"                    
-                    . ":modalidad,"
-                    . ":curso,"
-                    . "CURDATE(),"                    
-                    . ":estado,"
-                    . ":telefono,"
-                    . ":email,"
-                    . ":direccion,"
-                    . ":comuna,"
-                    . ":educacion,"
-                    . ":experiencia"
-                    . ")";
+            $exp_laboral = $postulacion->getExperiencia_laboral();            
+            $modalidad = $postulacion->getModalidad();
+            $curso = $postulacion->getCurso();
+            $query = "INSERT INTO solicitud(rutPostulante, nombre_postulante, a_paterno, a_materno, fechaNacimiento, sexo, telefono, email, direccion, comuna, educacion, experiencia, modalidad, curso, fechaIngreso, estado) VALUES("
+                    . "'$rut_postulante', '$nombre', '$ap_paterno', '$ap_materno', STR_TO_DATE('$f_nacimiento', '%d/%m/%Y'), '$sexo', '$fono', '$correo', '$direccion', '$comuna', '$niv_edu', '$exp_laboral', '$modalidad', '$curso', CURDATE(), 'pendiente')";            
+            
             $statement = $conexion->prepare($query);
             $statement->bindValue(':rut', $rut_postulante);
-            $statement->bindValue(':modalidad', $modalidad);
-            $statement->bindValue(':curso', $curso);
-            $statement->bindValue(':estado', $estado);
+            $statement->bindValue(':nombre', $nombre);
+            $statement->bindValue(':ap_paterno', $ap_paterno);
+            $statement->bindValue(':ap_materno', $ap_materno);    
+            $statement->bindValue(':f_nacimiento', $f_nacimiento);
+            $statement->bindValue(':sexo', $sexo);
             $statement->bindValue(':telefono', $fono);
             $statement->bindValue(':email', $correo);
             $statement->bindValue(':direccion', $direccion);
             $statement->bindValue(':comuna', $comuna);
             $statement->bindValue(':educacion', $niv_edu);
             $statement->bindValue(':experiencia', $exp_laboral);
+            $statement->bindValue(':modalidad', $modalidad);
+            $statement->bindValue(':curso', $curso);            
             $statement->execute();
+            
             $filasAfectadas = $statement->rowCount();
             if ($filasAfectadas > 0) {
                 $id_insercion = $conexion->lastInsertId();

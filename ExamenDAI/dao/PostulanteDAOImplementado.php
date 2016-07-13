@@ -1,7 +1,6 @@
 <?php
 
 include '../dto/postulante.php';
-include 'postulantedao.php';
 include '../sql/ConexionPDO.php';
 
 class PostulanteDAOImplementado  {

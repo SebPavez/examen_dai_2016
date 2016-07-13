@@ -1,6 +1,7 @@
 
 <?php
 include ('includes/header.php');
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $errores = array();
@@ -8,95 +9,114 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($_POST['rut'])) {
         $errores[] = 'Olvidaste ingresar tu rut';
     } else {
-        $nom = trim($_POST['rut']);
+        $rut = trim($_POST['rut']);
     }
 
     if (empty($_POST['nombre'])) {
         $errores[] = 'Olvidaste ingresar tu nombre';
     } else {
-        $nom = trim($_POST['nombre']);
+        $nombre = trim($_POST['nombre']);
     }
 
     if (empty($_POST['a_paterno'])) {
         $errores[] = 'Olvidaste ingresar tu apellido paterno';
     } else {
-        $ape = trim($_POST['a_paterno']);
+        $a_paterno = trim($_POST['a_paterno']);
     }
 
     if (empty($_POST['a_materno'])) {
         $errores[] = 'Olvidaste ingresar tu apellido materno';
     } else {
-        $ape = trim($_POST['a_materno']);
+        $a_materno = trim($_POST['a_materno']);
     }
 
     if (empty($_POST['f_nacimiento'])) {
-        $errores[] = 'Olvidaste ingresar tu apellido materno';
+        $errores[] = 'Olvidaste ingresar tu fecha de nacimiento';
     } else {
         $f_nacimiento = trim($_POST['f_nacimiento']);
     }
 
     if (empty($_POST['sexo'])) {
-        $errores[] = 'Olvidaste ingresar tu apellido materno';
+        $errores[] = 'Olvidaste indicar tu sexo';
     } else {
         $sexo = trim($_POST['sexo']);
     }
 
     if (empty($_POST['fono'])) {
-        $errores[] = 'Olvidaste ingresar tu apellido materno';
+        $errores[] = 'Olvidaste ingresar tu teléfono';
     } else {
         $fono = trim($_POST['fono']);
-    }
-
-    if (empty($_POST['fono'])) {
-        $errores[] = 'Olvidaste ingresar tu apellido materno';
-    } else {
-        $fono = trim($_POST['fono']);
-    }
+    }    
 
     if (empty($_POST['correo'])) {
-        $errores[] = 'Olvidaste ingresar tu apellido materno';
+        $errores[] = 'Olvidaste ingresar tu correo';
     } else {
         $email = trim($_POST['correo']);
     }
-
-    if (empty($_POST['nivel_educacional'])) {
-        $errores[] = 'Olvidaste ingresar tu apellido materno';
+    
+    if (empty($_POST['direccion'])) {
+        $errores[] = 'Olvidaste ingresar tu dirección';
     } else {
-        $n_educacional = trim($_POST['nivel_educacional']);
+        $direccion = trim($_POST['direccion']);
+    }
+    
+    if (empty($_POST['comuna'])) {
+        $errores[] = 'Olvidaste ingresar tu comuna';
+    } else {
+        $comuna = trim($_POST['comuna']);
     }
 
-    if (!empty($_POST['pass'])) {
-        if ($_POST['pass'] != $_POST['re_pass']) {
-            $errores[] = 'La contraseña no coincide';
-        } else {
-            $p = trim($_POST['pass']);
-        }
+    if (empty($_POST['educacion'])) {
+        $errores[] = 'Olvidaste ingresar tu nivel educacional';
     } else {
-        $errores[] = 'Olvidaste ingresar tu contraseña';
+        $n_educacional = trim($_POST['educacion']);
     }
+    
+    if (empty($_POST['cantidad_anios'])) {
+        $errores[] = 'Olvidaste indicar tus años de experiencia laboral';
+    } else {
+        $experiencia_laboral = trim($_POST['cantidad_anios']);
+    }
+    
+    
+    if (empty($_POST['modalidad'])) {
+        $errores[] = 'Olvidaste indicar la modalidad';
+    } else {
+        $modalidad = trim($_POST['modalidad']);
+    }
+    
+    if (empty($_POST['curso'])) {
+        $errores[] = 'Olvidaste indicar el curso';
+    } else {
+        $curso = trim($_POST['curso']);
+    }
+    
+    
     if (empty($errores)) {
-        include ('../dao/postulantedaoimplementado.php');
-
-        $nuevoAutor = new \dto\Solicitud();
-        $nuevoAutor->setRut($rut);
-        $nuevoAutor->setNombre($nombre);
-        $nuevoAutor->setApellido_paterno($apellido_paterno);
-        $nuevoAutor->setApellido_materno($apellido_materno);
-        $nuevoAutor->setF_nacimiento($f_nacimiento);
-        $nuevoAutor->setSexo($sexo);
-        $nuevoAutor->setFono($fono);
-        $nuevoAutor->setNivel_educacional($nivel_educacional);
-        $nuevoAutor->setE_mail($e_mail);
-        $nuevoAutor->setDireccion($direccion);
-        $nuevoAutor->setComuna($comuna);
-        $nuevoAutor->setExperiencia_laboral($experiencia_laboral);
-        $nuevoAutor->setPass($pass);
-
-        $autor = new \dao\SolicitudDaoImplementado();
+        include ('../dto/Solicitud.php');
+        include ('../dao/SolicitudDaoImplementado.php');
+       
+        $postulacion = new Solicitud();
+        $postulacion->setRut($rut);
+        $postulacion->setNombre($nombre);
+        $postulacion->setApellido_paterno($a_paterno);
+        $postulacion->setApellido_materno($a_materno);
+        $postulacion->setF_nacimiento($f_nacimiento);
+        $postulacion->setSexo($sexo);
+        $postulacion->setFono($fono);
+        $postulacion->setE_mail($email);
+        $postulacion->setDireccion($direccion);
+        $postulacion->setComuna($comuna);
+        $postulacion->setNivel_educacional($n_educacional); 
+        $postulacion->setExperiencia_laboral($experiencia_laboral);
+        $postulacion->setModalidad($modalidad);
+        $postulacion->setCurso($curso);       
+        
+        $autor = new SolicitudDaoImplementado();
         $res = $autor->ingresarPostulacion($postulacion);
         if ($res) {
             echo "<h1>GRACIAS!</h1>"
-            . "<p>Te has registrado exitósamente!</p><br><a href=login.php>Volver al login</a>";
+            . "<p>Solicitud enviada! Su codigo de solicitud es: ".$res."</p><br><a href=login.php>Volver al login</a>";
         } else {
             echo "<h1>Error </h1>" . "<p>No te hemos podido registrar debido a un error de sistema.</p>";
         }
@@ -114,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 ?>
 
-<form action="formulario_postulacion.php" class="contact_form">
+<form action="formulario_postulacion.php" method="POST" class="contact_form">
     <h1>Formulario de registro</h1>
         <li>
             <ul>
@@ -135,7 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </ul>
             <ul>
                 <label for="fecha_nacimiento">Fecha Nacimiento</label>
-                <input type="date" required name="fecha_nacimiento">        
+                <input type="date" required name="f_nacimiento">        
             </ul>
             <ul>
                 <label for="sexo">Sexo:</label>
@@ -168,7 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <ul>
                 <div id="exp" hidden>
                     <label for="cantidad_anios">Años experiencia:</label>
-                    <input id="tiempo" type="number" name="cantidad_anios">
+                    <input id="tiempo" type="number" value="0" name="cantidad_anios">
                 </div>                
             </ul>
 
