@@ -9,11 +9,11 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
     list($check, $data) = $ejecutivo->ingresarEjecutivo($_POST['rut'], $_POST['pass']);
     
     if($check){        
-        $_SESSION['rut'] = $data->rut;
-        $_SESSION['nombre'] = $data->nombre;
+        $_SESSION['rut'] = $data['rut'];
+        $_SESSION['nombre'] = $data['nombre'];
         $_SESSION['tipo_usuario'] = 'ejecutivo';
         
-        header ('Location: formulario');
+        header ('Location: ../paginas/formulario_postulacion.php');
         
     }else{
         echo "Error en datos de login.<br>";

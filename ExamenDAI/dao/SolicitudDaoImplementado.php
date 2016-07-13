@@ -12,7 +12,7 @@ class SolicitudDaoImplementado{
             $statement = $conexion->prepare($query);
             $statement->bindValue(':id', $id_postulacion);
             $statement->execute();            
-            $res = $statement->fetchAll(PDO::FETCH_ASSOC);
+            $res = $statement->fetch(PDO::FETCH_ASSOC);
             return $res;
         } catch (Exception $ex) {
             echo "error al buscar postulación: ".$ex->getMessage();
@@ -92,10 +92,10 @@ class SolicitudDaoImplementado{
     public function listarPostulaciones() {
         $conexion = new ConexionPDO();        
         try {
-            $query = "SELECT rutPostulante, estado from solicitud ";
+            $query = "SELECT rutPostulante, idSolicitud, nombre_postulante, a_paterno, a_materno, estado from solicitud ";
             $statement = $conexion->prepare($query);            
             $statement->execute();
-            $res = $statement->fetch(PDO::FETCH_ASSOC);
+            $res = $statement->fetchAll(PDO::FETCH_ASSOC);
             return $res;
         } catch (Exception $exc) {
             echo $exc->getMessage();
@@ -107,13 +107,13 @@ class SolicitudDaoImplementado{
         $conexion = new ConexionPDO();        
         try {
 
-            $query = "SELECT rutPostulante, estado from solicitud "
-                    . "WHERE (fechaIngreso BETWEEN :fechaDesde AND :fechaHasta";
+            $query = "SELECT rutPostulante, idSolicitud, nombre_postulante, a_paterno, a_materno, estado from solicitud "
+                    . "WHERE (fechaIngreso BETWEEN STR_TO_DATE('$fecha_desde', '%d/%m/%Y') AND STR_TO_DATE('$fecha_hasta', '%d/%m/%Y'))";
             $statement = $conexion->prepare($query);
-            $statement->bindParam(':fechaDesde', $fecha_desde);
-            $statement->bindParam(':fechaHasta', $fecha_hasta);
+//            $statement->bindParam(':fechaDesde', $fecha_desde);
+//            $statement->bindParam(':fechaHasta', $fecha_hasta);
             $statement->execute();
-            $res = $statement->fetch(PDO::FETCH_ASSOC);
+            $res = $statement->fetchAll(PDO::FETCH_ASSOC);
             return $res;
         } catch (Exception $exc) {
             echo $exc->getMessage();
@@ -121,19 +121,16 @@ class SolicitudDaoImplementado{
     }
 
     public function listarPostulacionesPorRutPostulante($rut_postulante) {
-        $conexion = new ConexionPDO();
+        $conexion = new ConexionPDO();        
         try {
-            $n_rut = trimI($rut_postulante);
-            $query = "SELECT rutPostulante, estado from solicitud "
-                    . "WHERE rutPostulante= :rut";
-            $statement = $conexion->prepare($query);
-            $statement->bindParam(':rut', $$n_rut);
+            $query = "SELECT rutPostulante, idSolicitud, nombre_postulante, a_paterno, a_materno, estado from solicitud where rutPostulante = :rut ";
+            $statement = $conexion->prepare($query);            
+            $statement->bindValue(':rut', $rut_postulante);
             $statement->execute();
             $res = $statement->fetchAll(PDO::FETCH_ASSOC);
             return $res;
         } catch (Exception $exc) {
             echo $exc->getMessage();
-            return false;
         }
     }
 

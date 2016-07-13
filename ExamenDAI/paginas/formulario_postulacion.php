@@ -120,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
             echo "<h1>Error </h1>" . "<p>No te hemos podido registrar debido a un error de sistema.</p>";
         }
-        include ('includes/footer.html');
+        include ('includes/footer.php');
         exit();
     } else {
         echo "<h1>Error </h1>"

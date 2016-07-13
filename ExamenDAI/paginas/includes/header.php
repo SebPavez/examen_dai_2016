@@ -25,7 +25,8 @@ if(!isset($_SESSION['tipo_usuario'])){
 				<li>
                         <?php
                         if($_SESSION['tipo_usuario']==='ejecutivo'){
-                            echo "<a href='buscador_solicitudes.php'>Buscar postulacion </a>";                                                                                                    
+                            echo "<a href='listado_solicitudes.php'>Listar postulaciones</a>"; 
+                            echo "<a href='buscador_solicitudes.php'>Listar por parámetro </a>";
                         }
                         ?>
                                 </li>    

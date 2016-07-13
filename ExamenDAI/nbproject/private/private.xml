@@ -3,15 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/ExamenDAI/dao/SolicitudDAO.php</file>
-            <file>file:/C:/wamp/www/ExamenDAI/paginas/estado_postulacion.php</file>
-            <file>file:/C:/wamp/www/ExamenDAI/dto/Solicitud.php</file>
-            <file>file:/C:/wamp/www/ExamenDAI/paginas/formulario_postulacion.php</file>
+            <file>file:/C:/wamp/www/ExamenDAI/paginas/buscar_fechas.php</file>
+            <file>file:/C:/wamp/www/ExamenDAI/paginas/login.php</file>
             <file>file:/C:/wamp/www/ExamenDAI/handlers/proc_login_postulante.php</file>
-            <file>file:/C:/wamp/www/ExamenDAI/dao/PostulanteDAOImplementado.php</file>
-            <file>file:/C:/wamp/www/ExamenDAI/dao/PostulanteDAO.php</file>
             <file>file:/C:/wamp/www/ExamenDAI/paginas/listado_solicitudes.php</file>
+            <file>file:/C:/wamp/www/ExamenDAI/paginas/includes/header.php</file>
+            <file>file:/C:/wamp/www/ExamenDAI/paginas/eliminar_solicitud.php</file>
             <file>file:/C:/wamp/www/ExamenDAI/dao/SolicitudDaoImplementado.php</file>
+            <file>file:/C:/wamp/www/ExamenDAI/paginas/formulario_postulacion.php</file>
+            <file>file:/C:/wamp/www/ExamenDAI/handlers/proc_login_ejecutivo.php</file>
+            <file>file:/C:/wamp/www/ExamenDAI/paginas/modificacion_solicitud.php</file>
+            <file>file:/C:/wamp/www/ExamenDAI/dao/PostulanteDAOImplementado.php</file>
+            <file>file:/C:/wamp/www/ExamenDAI/paginas/vista_solicitud.php</file>
+            <file>file:/C:/wamp/www/ExamenDAI/paginas/buscar_rut.php</file>
+            <file>file:/C:/wamp/www/ExamenDAI/paginas/modificar.php</file>
+            <file>file:/C:/wamp/www/ExamenDAI/paginas/buscador_solicitudes.php</file>
         </group>
     </open-files>
 </project-private>
